@@ -4,7 +4,15 @@
 - name: Verify
   hosts: all
   gather_facts: false
+  vars:
+    expected_content: web content
   tasks:
   - name: Example assertion
     assert:
       that: true
+  - name: test http
+    uri:
+      url: http://localhost
+      return_content: true
+    register: this
+    failed_when: "expected_content not in this.content"
