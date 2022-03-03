@@ -1,25 +1,26 @@
----
-- name: "Install rng tools"
-  package:
-    name: "rng-tools"
+--- 
+- 
+  name: "Install rng tools"
+  package: 
+    name: rng-tools
     state: present
-  when:
-    - ansible_os_family == 'RedHat'
-    - ansible_distribution_major_version == "7"
-
- - name: Ensure rngd config
-   lineinfile: dest=/usr/lib/systemd/rngd.service regexp=^ExecStart= line='ExecStart=/sbin/rngd -f-r /dev/urandom'
-   when:
-     - ansible_os_family == 'RedHat'
-     - ansible_distribution_major_version == "7"
-   notify:
-     - Restart rngd
-
- - name: Start rngd
-   service:
-     name: rngd
-     state: started
-     enabled: yes
-   when:
-     - ansible_os_family == 'RedHat'
-     - ansible_distribution_major_version == "7"
+  when: 
+    - "ansible_os_family == 'RedHat'"
+    - "ansible_distribution_major_version == \"7\""
+- 
+  lineinfile: "dest=/usr/lib/systemd/rngd.service regexp=^ExecStart= line='ExecStart=/sbin/rngd -f-r /dev/urandom'"
+  name: "Ensure rngd config"
+  notify: 
+    - "Restart rngd"
+  when: 
+    - "ansible_os_family == 'RedHat'"
+    - "ansible_distribution_major_version == \"7\""
+- 
+  name: "Start rngd"
+  service: 
+    enabled: true
+    name: rngd
+    state: started
+  when: 
+    - "ansible_os_family == 'RedHat'"
+    - "ansible_distribution_major_version == \"7\""
