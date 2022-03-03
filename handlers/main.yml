@@ -1,2 +1,5 @@
 ---
-# handlers file for mywebapp
+- name: Restart rngd
+  service:
+    name: rngd
+    state: restarted

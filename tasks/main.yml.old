@@ -1,0 +1,6 @@
+---
+# tasks file for mywebapp
+- name: Ensure httpd installed
+  package:
+    name: "httpd"
+    state: present

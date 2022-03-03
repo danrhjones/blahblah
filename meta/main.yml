@@ -1,15 +1,15 @@
 galaxy_info:
-  author: andrew
-  description: simple web install
-  company: tup
-  license: Apache
+  author: Ricardo Gerardi
+  description: Mywebapp role deploys a sample web app
+  company: Red Hat
+  namespace: chicken
+  role_name: rng
+  license: MIT
   min_ansible_version: 2.9
   platforms:
-   - name: centos
-     versions:
-     - 8
-   - name: ubuntu
-     versions:
-     - 20.04
+    - name: rhel
+      versions:
+        - 7
   galaxy_tags: []
-dependencies: [] 
+
+dependencies: []
