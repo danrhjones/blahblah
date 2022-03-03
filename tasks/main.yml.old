@@ -1,6 +1,25 @@
 ---
-# tasks file for mywebapp
-- name: Ensure httpd installed
+- name: "Install rng tools"
   package:
-    name: "httpd"
+    name: "rng-tools"
     state: present
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution_major_version == "7"
+
+ - name: Ensure rngd config
+   lineinfile: dest=/usr/lib/systemd/rngd.service regexp=^ExecStart= line='ExecStart=/sbin/rngd -f-r /dev/urandom'
+   when:
+     - ansible_os_family == 'RedHat'
+     - ansible_distribution_major_version == "7"
+   notify:
+     - Restart rngd
+
+ - name: Start rngd
+   service:
+     name: rngd
+     state: started
+     enabled: yes
+   when:
+     - ansible_os_family == 'RedHat'
+     - ansible_distribution_major_version == "7"
