@@ -4,24 +4,10 @@ dependency:
 driver:
   name: docker
 platforms:
- - name: REHL
-   image: redhat/ubi8
-   command: ${MOLECULE_DOCKER_COMMAND:-"/usr/sbin/init"}
-   pre_build_image: true
-   volumes:
-     - /sys/fs/cgroup:/sys/fs/cgroup:ro
-   privileged: true
  - name: centos
    image: geerlingguy/docker-centos8-ansible
    pre_build_image: true
    command: ${MOLECULE_DOCKER_COMMAND:-"/usr/sbin/init"}
-   volumes:
-     - /sys/fs/cgroup:/sys/fs/cgroup:ro
-   privileged: true
- - name: ubuntu
-   image: geerlingguy/docker-ubuntu2004-ansible
-   command: ${MOLECULE_DOCKER_COMMAND:-"/usr/sbin/init"}
-   pre_build_image: true
    volumes:
      - /sys/fs/cgroup:/sys/fs/cgroup:ro
    privileged: true

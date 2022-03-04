@@ -1,21 +1,25 @@
 ---
-- name: vars
-  include_vars: "{{ ansible_os_family }}.yml"
-- name: update
-  apt: 
-    update_cache: true
-    cache_valid_time: 86400
-  when: ansible_os_family == 'Debian'      
-- name: install 
+- name: "Install rng tools"
   package:
-    name: "{{ web }}" 
+    name: "rng-tools"
     state: present
-- name: web content
-  copy:
-    dest: /var/www/html/index.html
-    content: this is the web content man
-- name: service
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution_major_version == "8"
+
+- name: Ensure rngd config
+  lineinfile: dest=/usr/lib/systemd/system/rngd.service regexp=^ExecStart= line='ExecStart=/usr/sbin/rngd -f --fill-watermark=0'
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution_major_version == "8"
+  notify:
+    - Restart rngd
+
+- name: Start rngd
   service:
-    name: "{{ web }}" 
+    name: rngd
     state: started
-    enabled: true
+    enabled: yes
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution_major_version == "8"
