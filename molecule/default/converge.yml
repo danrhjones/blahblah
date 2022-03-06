@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include acme.mywebapp"
+    - name: "Include mywebapp"
       include_role:
         name: "blahblah"
