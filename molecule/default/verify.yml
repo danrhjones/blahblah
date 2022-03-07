@@ -7,16 +7,13 @@
   vars:
     expected_content: '6'
   tasks:
-  - name: Example assertion
-    assert:
-      that: true
-  - name: add sampe file 
+  - name: add sample file 
     command: |
            echo -e "01203kljdsfkjl9i4j" >> sample.txt
-  - name: version
+  - name: Get the version 
     command: rngtest --version
     register: hello
-  - name: testing123
+  - name: Check that rngtest is on version 6.13 
     assert:
       that: hello.stdout_lines[0] == 'rngtest 6.13'
 
