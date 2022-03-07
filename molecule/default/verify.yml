@@ -1,6 +1,6 @@
 ---
 # This is an example playbook to execute Ansible tests.
-
+# this is also not being used, as I am using the testinfra verifier, and py-test
 - name: Verify
   hosts: all
   #gather_facts: false

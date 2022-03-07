@@ -22,8 +22,11 @@ scenario:
 provisioner:
    name: ansible
 verifier:
-   name: ansible
+   name: testinfra
+   options:
+           s: true      
 lint: |
    set -e
    yamllint .
    ansible-lint .
+   flake8
