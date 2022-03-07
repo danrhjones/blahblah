@@ -11,6 +11,14 @@ platforms:
    volumes:
      - /sys/fs/cgroup:/sys/fs/cgroup:ro
    privileged: true
+scenario:
+   test_sequence:
+     - destroy
+     - create
+     - converge
+     # - idempotence
+     - lint
+     - verify
 provisioner:
    name: ansible
 verifier:
